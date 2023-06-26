@@ -1,10 +1,8 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -23,38 +21,31 @@ public class Main {
     }
 
     private static Double romeConvert(String in){
-        switch (in.toLowerCase()){
-            case "i":
-                return 1.0;
-            case "ii":
-                return 2.0;
-            case "iii":
-                return 3.0;
-            case "iv":
-                return 4.0;
-            case "v":
-                return 5.0;
-            case "vi":
-                return 6.0;
-            case "vii":
-                return 7.0;
-            case "viii":
-                return 8.0;
-            case "ix":
-                return 9.0;
-            case "x":
-                return 10.0;
-            default: throw new NumberFormatException();
-        }
+        return switch (in.toLowerCase()) {
+            case "i" -> 1.0;
+            case "ii" -> 2.0;
+            case "iii" -> 3.0;
+            case "iv" -> 4.0;
+            case "v" -> 5.0;
+            case "vi" -> 6.0;
+            case "vii" -> 7.0;
+            case "viii" -> 8.0;
+            case "ix" -> 9.0;
+            case "x" -> 10.0;
+            default -> throw new NumberFormatException();
+        };
     }
 
     public static String calc(String input) {
         var args = input.split(" ");
+        if(args.length != 3)
+            throw new RuntimeException();
         String operator = args[1];
         String arg1 = args[0];
         String arg2 = args[2];
-        Double d1 = null;
-        Double d2 = null;
+        Double d1;
+        Double d2;
+
 
         boolean isNumeric = true;
         try{
@@ -65,22 +56,15 @@ public class Main {
             d1 = romeConvert(arg1);
             d2 = romeConvert(arg2);
         }
-        Double result = null;
-        switch (operator){
-            case "+":
-                result = d1 + d2;
-                break;
-            case "-":
-                result = d1 - d2;
-                break;
-            case "/":
-                result = d1/d2;
-                break;
-            case "*":
-                result = d1 * d2;
-                break;
-            default: throw new RuntimeException();
-        }
+        if (d1 < 0 || d1 > 10 || d2 < 0 || d2 > 10)
+            throw new RuntimeException();
+        Double result = switch (operator) {
+            case "+" -> d1 + d2;
+            case "-" -> d1 - d2;
+            case "/" -> d1 / d2;
+            case "*" -> d1 * d2;
+            default -> throw new RuntimeException();
+        };
 
         if(isNumeric)
             return String.valueOf(result.intValue());
