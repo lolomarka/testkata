@@ -1,2 +1,2 @@
 # testkata
-Тестовое задание для Kata-Academy курс Java-разрабчик
+Тестовое задание для Kata-Academy курс Java-разработчик
